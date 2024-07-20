@@ -8,6 +8,8 @@ const MainContent = () => {
   const dispatch = useDispatch();
   const query = useSelector((state) => state.search.query);
   const results = useSelector((state) => state.search.results);
+  const recentlyListened = useSelector((state) => state.recent.recentlyListened);
+  const recentlySearchedArtists = useSelector((state) => state.recent.recentlySearchedArtists);
 
   useEffect(() => {
     if (query) {
@@ -26,7 +28,7 @@ const MainContent = () => {
   };
 
   return (
-    <div className="flex-1 p-6">
+    <div className="flex-1 p-6 overflow-y-auto">
       <div className="mb-4">
         <input
           type="text"
@@ -36,12 +38,36 @@ const MainContent = () => {
           onChange={handleSearchChange}
         />
       </div>
-      <h2 className="text-2xl font-bold text-white mb-4">Discover</h2>
-      <div className="grid grid-cols-4 gap-4">
-        {results.map((track) => (
-          <MusicCard key={track.id} track={track} />
-        ))}
-      </div>
+
+      <section className="mb-8">
+        <h2 className="text-2xl font-bold text-white mb-4">Discover</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          {results.map((track) => (
+            <MusicCard key={track.id} track={track} />
+          ))}
+        </div>
+      </section>
+
+      <section className="mb-8">
+        <h2 className="text-2xl font-bold text-white mb-4">Top Music (Recently Listened)</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          {recentlyListened.map((track) => (
+            <MusicCard key={track.id} track={track} />
+          ))}
+        </div>
+      </section>
+
+      <section>
+        <h2 className="text-2xl font-bold text-white mb-4">Top Artists (Recently Searched)</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          {recentlySearchedArtists.map((artist) => (
+            <div key={artist.id} className="bg-gray-800 p-4 rounded-lg text-center">
+              <img src={artist.image} alt={artist.name} className="w-full h-48 object-cover rounded-lg" />
+              <h3 className="text-white mt-4">{artist.name}</h3>
+            </div>
+          ))}
+        </div>
+      </section>
     </div>
   );
 };
