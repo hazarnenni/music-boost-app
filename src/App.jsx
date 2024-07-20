@@ -11,8 +11,10 @@ const App = () => {
     <Provider store={store}>
       <div className="flex h-screen bg-gray-900">
         <Sidebar />
-        <MainContent />
-        <Player />
+        <div className="flex-1 flex flex-col">
+          <MainContent />
+          <Player />
+        </div>
       </div>
     </Provider>
   );
