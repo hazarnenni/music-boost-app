@@ -11,3 +11,4 @@ const MusicCard = ({ track }) => {
 };
 
 export default MusicCard;
+
